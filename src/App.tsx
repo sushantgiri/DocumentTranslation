@@ -1,17 +1,20 @@
-import { useState, useCallback } from 'react';
+import React , {useState, useCallback} from 'react';
 import './App.css';
 import {Tesseract} from "tesseract.ts";
 import Dropzone from 'react-dropzone'
 import closeIcon from './close.svg';
 import { ImageLike } from 'tesseract.js';
+import { DropZone } from '../src/drag_drop/DropZone'
 
 function App() {
+  const [isDropActive, setIsDropActive] = React.useState(false)
   const [image, setImage] = useState("");
   const [text, setText] = useState("");
   const [result, setResult] = useState("")
   const [data, setData] = useState(null);
   const [onProgress, setOnProgress] = useState(false);
-  
+  const [files, setFiles] = React.useState<File[]>([])
+
   const resetChanges = () => {
     setImage("")
     setText("")
@@ -45,6 +48,16 @@ function App() {
     
   }
 
+  // Create handler for dropzone's onDragStateChange:
+  const onDragStateChange = React.useCallback((dragActive: boolean) => {
+    setIsDropActive(dragActive)
+  }, [])
+
+  // Create handler for dropzone's onFilesDrop:
+  const onFilesDrop = React.useCallback((files: File[]) => {
+    setFiles(files)
+  }, [])
+
   return (
     <div className="App">
       <header className="App-header">
@@ -57,7 +70,22 @@ function App() {
         <p className='ternary-header'>Account photo</p>
         <p className='ternary-sub-header'>Only .jpg and.png files. 500kb max file size.</p>
 
-        <Dropzone onDrop={acceptedFiles => {
+        
+      {/* Render the dropzone */}
+      <DropZone onDragStateChange={onDragStateChange} onFilesDrop={onFilesDrop}>
+        <h2>Drop your files here</h2>
+
+        {files.length === 0 ? (
+          <h3>No files to upload</h3>
+        ) : (
+          <h3>Files to upload: {files.length}</h3>
+        )}
+
+       
+      </DropZone>
+    
+
+        {/* <Dropzone onDrop={acceptedFiles => {
           acceptedFiles.forEach((file) => {
             const reader = new FileReader();
 
@@ -79,7 +107,7 @@ function App() {
                   </div>
                 </section>
               )}
-          </Dropzone>
+          </Dropzone> */}
 
           {image != ""  && 
         <div className='image-container'>
