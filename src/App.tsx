@@ -1,28 +1,31 @@
-import React , {useState, useCallback} from 'react';
+import React , {useState, useCallback,CSSProperties} from 'react';
 import './App.css';
 import {Tesseract} from "tesseract.ts";
 import Dropzone from 'react-dropzone'
 import closeIcon from './close.svg';
-import { ImageLike } from 'tesseract.js';
-import { DropZone } from '../src/drag_drop/DropZone'
+import ClipLoader from "react-spinners/ClipLoader";
+
 
 function App() {
-  const [isDropActive, setIsDropActive] = React.useState(false)
   const [image, setImage] = useState("");
-  const [text, setText] = useState("");
-  const [result, setResult] = useState("")
-  const [data, setData] = useState(null);
   const [onProgress, setOnProgress] = useState(false);
-  const [files, setFiles] = React.useState<File[]>([])
-
+  const [files, setFiles] = React.useState<File[]>([]);
+  const [result, setResult] = useState<Tesseract.Page>();
+  const [color, setColor] = useState("#ffffff");
+  const override: CSSProperties = {
+    display: "block",
+    margin: "0 auto",
+    borderColor: "red",
+    alignSelf:'center'
+  };
   const resetChanges = () => {
     setImage("")
-    setText("")
   }
 
   const handleClick = () => {
     if (image != ""){
           console.log('Recognizing....')
+          setOnProgress(true)
           Tesseract.recognize(
             image,
           )
@@ -33,34 +36,17 @@ function App() {
 
           })
           .then(result => {
-            console.log('Result....',JSON.stringify(result))
+            console.log('Result....',result)
             setOnProgress(false)
-
-            // if(result.data){
-            //   setText(result.data.text);
-            //   setData(result.data)
-              
-            //   setOnProgress(false)
-              
-            // }
+            setResult(result)
       })
     }
     
   }
 
-  // Create handler for dropzone's onDragStateChange:
-  const onDragStateChange = React.useCallback((dragActive: boolean) => {
-    setIsDropActive(dragActive)
-  }, [])
-
-  // Create handler for dropzone's onFilesDrop:
-  const onFilesDrop = React.useCallback((files: File[]) => {
-    setFiles(files)
-  }, [])
-
   return (
     <div className="App">
-      <header className="App-header">
+      {!result && !onProgress && <header className="App-header">
         <p className="header">Scan Contents of Estimate/Quote</p>
         <p className="sub-header">Upload file or Youtube link for translation Estimate</p>
         <div className='tab-container'>
@@ -70,61 +56,107 @@ function App() {
         <p className='ternary-header'>Account photo</p>
         <p className='ternary-sub-header'>Only .jpg and.png files. 500kb max file size.</p>
 
-        
-      {/* Render the dropzone */}
-      <DropZone onDragStateChange={onDragStateChange} onFilesDrop={onFilesDrop}>
-        <h2>Drop your files here</h2>
-
-        {files.length === 0 ? (
-          <h3>No files to upload</h3>
-        ) : (
-          <h3>Files to upload: {files.length}</h3>
-        )}
-
-       
-      </DropZone>
     
 
-        {/* <Dropzone onDrop={acceptedFiles => {
+        <Dropzone 
+          onDrop={acceptedFiles => {
           acceptedFiles.forEach((file) => {
             const reader = new FileReader();
 
             reader.onload = () => {
                 const binaryStr = reader.result
-                console.log('Image Properties', reader.result?.toString)
-                setImage(""+reader.result?.toString)
-                setResult(""+reader.result?.toString)        
+                console.log('Image Properties', reader.result)
+                setImage(""+reader.result)
               }
             reader.readAsDataURL(file);
             return file;
           });
         }}>
               {({getRootProps, getInputProps}) => (
-                <section>
+                <section style={{ borderStyle: 'dotted',
+                borderWidth: 1,
+                borderRadius: 12,
+                marginBottom:12}}>
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
-                    <p>Drag 'n' drop some files here, or click to select files</p>
+                    <p className='upload-color'>Drag and drop files here or upload</p>
                   </div>
                 </section>
               )}
-          </Dropzone> */}
+          </Dropzone>
 
           {image != ""  && 
-        <div className='image-container'>
-        
-          <p className='image-label'>Document.png</p>
-          <img src={closeIcon} className='close-icon' alt="React Logo"
-          onClick={resetChanges} />
+          <div className='image-container'>
+          
+            <p className='image-label'>Document.png</p>
+            <img src={closeIcon} className='close-icon' alt="React Logo"
+            onClick={resetChanges} />
 
-        </div>
+          </div>
         }
-        <div>
-          <p style={{color:'#000'}}> {text} </p>
-        </div>
+
+     
+       
          
         <button onClick={handleClick} className="scan-button">Start Scan</button>
 
-      </header>
+      </header>}
+
+      <ClipLoader
+              color={color}
+              loading={onProgress}
+              cssOverride={override}
+              size={150}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+
+      {result && 
+      <header className="App-header">
+        <div style={{alignSelf:'center', justifyContent:'center'}}>
+            <p className="header">Result of Scanning</p>
+            <p className="sub-header">This is the result of document analysis for estimation</p>
+        </div>
+
+        <div className="result-container">
+          <p>Basic Information</p>
+          <p>{'Symbols: ' + result.symbols.length}</p>
+          <p>{'Paragraphs: ' + result.paragraphs.length}</p>
+          <p>{'Confidence: '+ result.confidence}</p>
+          <p>{'Word Length: ' + result.words.length}</p>
+          <p>{'OEM: ' + result.oem}</p>
+          <p>{'Blocks: ' + result.blocks.length}</p>
+          <p>{'Version: ' + result.version}</p>
+          <p>{'Text: ' + result.text}</p>
+        </div>
+
+        <div>
+
+        {/* <div>
+          <p>Contents</p>
+          <p>Content Type: </p>
+          <p>Words:</p>
+          <p>Lines: </p>
+          <p>Paragraphs: </p>
+          <p>Slides(Pages): </p>
+          <p>Memo: </p>
+          <p>Hiddent count: </p>
+          <p>Multimedia clops:</p>
+          <p>Language: </p>
+        </div> */}
+
+        <div>
+
+        </div>
+
+
+        </div>
+       
+
+      </header>}
+      
+
+      
 
     
         

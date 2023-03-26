@@ -90,6 +90,19 @@
   margin-right: 12px;
 }
 
+.upload-color {
+  color: blue;
+  font-weight: 600;
+  margin: 30px;
+  font-size: 18px;
+}
+
+.result-container {
+  border-width: 1%;
+  border-color: gray;
+  margin: 10px;
+}
+
 
 
 .App-logo {
