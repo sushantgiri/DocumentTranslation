@@ -7,6 +7,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 
 function App() {
+
   const [image, setImage] = useState("");
   const [onProgress, setOnProgress] = useState(false);
   const [files, setFiles] = React.useState<File[]>([]);
