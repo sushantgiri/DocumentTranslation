@@ -3,6 +3,8 @@
 The application fetches the text from the uploadeded document using tessaract.
 The application is available here. [https://sushantgiri.github.io/DocumentTranslation/](https://sushantgiri.github.io/DocumentTranslation/)  
 
+The application uses tessaract library asynchronously to parse the text in the document.
+
 
 ## Available Scripts
 
