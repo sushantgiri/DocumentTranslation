@@ -4,11 +4,13 @@ import {Tesseract} from "tesseract.ts";
 import Dropzone from 'react-dropzone'
 import closeIcon from './close.svg';
 import ClipLoader from "react-spinners/ClipLoader";
-
+import { TextractClient, AnalyzeDocumentCommand } from "@aws-sdk/client-textract";
+import FileParser from './FileParser';
 
 function App() {
 
   const [image, setImage] = useState("");
+  const [filename, setFilename] = useState("");
   const [onProgress, setOnProgress] = useState(false);
   const [files, setFiles] = React.useState<File[]>([]);
   const [result, setResult] = useState<Tesseract.Page>();
@@ -19,6 +21,7 @@ function App() {
     borderColor: "red",
     alignSelf:'center'
   };
+  const fileParser = FileParser()
   const resetChanges = () => {
     setImage("")
   }

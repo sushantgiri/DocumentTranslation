@@ -1,9 +1,10 @@
 {
-  "homepage":"https://scanner.gconstudio.com",
+  "homepage": "https://scanner.gconstudio.com",
   "name": "gcon_web_scanner",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aws-sdk/client-textract": "^3.326.0",
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -12,6 +13,7 @@
     "@types/node": "^17.0.45",
     "@types/react": "^18.0.29",
     "@types/react-dom": "^18.0.11",
+    "docxtemplater": "^3.37.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
