@@ -134,16 +134,27 @@ function App() {
         <div className="">
 
           <div>
-          <p>Basic Information</p>
-          <p>{'file name: ' }</p>
-          <p>{'file size: ' }</p>
-          <p>{'Extension: ' }</p>
+          <p>Contents</p>
+          <p>{'Content Type: ' }</p>
           <p>{'Words: ' }</p>
-          <p>{'Characters: ' }</p>
+          <p>{'Lines: ' }</p>
+          <p>{'Paragraphs: ' }</p>
+          <p>{'Slides (Pages): ' }</p>
+          <p>{'Memo: ' }</p>
+          <p>{'Hidden Count: ' }</p>
+          <p>{'Multimedia Clips: ' }</p>
+          <p>{'Language: '}</p>
+
           </div>
 
           <div>
-            
+          <p>Tables and Images</p>
+          <p>{'Tables: ' }</p>
+          <p>{'Words in Tables: ' }</p>
+          <p>{'Chars in Tables: ' }</p>
+          <p>{'Images: ' }</p>
+          <p>{'Chars. in Images ' }</p>
+
           </div>
 
         </div>
