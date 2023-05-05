@@ -124,14 +124,28 @@ function App() {
 
         <div className="result-container">
           <p>Basic Information</p>
-          <p>{'Symbols: ' + result.symbols.length}</p>
-          <p>{'Paragraphs: ' + result.paragraphs.length}</p>
-          <p>{'Confidence: '+ result.confidence}</p>
-          <p>{'Word Length: ' + result.words.length}</p>
-          <p>{'OEM: ' + result.oem}</p>
-          <p>{'Blocks: ' + result.blocks.length}</p>
-          <p>{'Version: ' + result.version}</p>
-          <p>{'Text: ' + result.text}</p>
+          <p>{'file name: ' }</p>
+          <p>{'file size: ' }</p>
+          <p>{'Extension: ' }</p>
+          <p>{'Words: ' }</p>
+          <p>{'Characters: ' }</p>
+        </div>
+
+        <div className="">
+
+          <div>
+          <p>Basic Information</p>
+          <p>{'file name: ' }</p>
+          <p>{'file size: ' }</p>
+          <p>{'Extension: ' }</p>
+          <p>{'Words: ' }</p>
+          <p>{'Characters: ' }</p>
+          </div>
+
+          <div>
+            
+          </div>
+
         </div>
 
         <div>
