@@ -4,30 +4,30 @@ import { TextractClient, AnalyzeDocumentCommand,TextractClientConfig } from "@aw
 import { Buffer } from 'buffer';
 import * as fs from 'fs';
 const FileParser = async(path: any) => {
-  var partsOfStr = (''+path).split(',');
-  if(partsOfStr.length > 0){
-    var type = partsOfStr[0]
-    console.log('Type', type)
-    if (type.includes('png')){
-      console.log('Data type is png')
-    }else if(type.includes('jpg')){
-      console.log('Data type is jpg')
-    }else if(type.includes('pdf')){
-      console.log('Data type is pdf')
-    }
-  }
+  // var partsOfStr = (''+path).split(',');
+  // if(partsOfStr.length > 0){
+  //   var type = partsOfStr[0]
+  //   console.log('Type', type)
+  //   if (type.includes('png')){
+  //     console.log('Data type is png')
+  //   }else if(type.includes('jpg')){
+  //     console.log('Data type is jpg')
+  //   }else if(type.includes('pdf')){
+  //     console.log('Data type is pdf')
+  //   }
+  // }
 
   const configuration: TextractClientConfig = {
-    region:'XXXXXX',
-    // awsAccesskeyID: "ASIAXBDE6P26LYD3XAUM",
-    // awsSecretAccessKey: "GgjRnewJBjQoKmqQ/qBy8JuLQ+hi0x3CX06caP2x",
-    // awsRegion: "ap-northeast-2",
-    credentials: {
-      accessKeyId: "XXXXXXXXXXX",
-      secretAccessKey: "XXXXXXX",
-      sessionToken: "",
-    }
-  }
+  //   region:'XXXXXX',
+  //   // awsAccesskeyID: "ASIAXBDE6P26LYD3XAUM",
+  //   // awsSecretAccessKey: "GgjRnewJBjQoKmqQ/qBy8JuLQ+hi0x3CX06caP2x",
+  //   // awsRegion: "ap-northeast-2",
+  //   credentials: {
+  //     accessKeyId: "XXXXXXXXXXX",
+  //     secretAccessKey: "XXXXXXX",
+  //     sessionToken: "",
+  //   }
+  // }
 
     
   }

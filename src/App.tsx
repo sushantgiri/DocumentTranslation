@@ -3,6 +3,7 @@ import './App.css';
 import {Tesseract} from "tesseract.ts";
 import Dropzone from 'react-dropzone'
 import closeIcon from './close.svg';
+import closeCircleIcon from './circle_close.svg'
 import ClipLoader from "react-spinners/ClipLoader";
 import { TextractClient, AnalyzeDocumentCommand } from "@aws-sdk/client-textract";
 import FileParser from './FileParser';
@@ -12,9 +13,10 @@ function App() {
   const [image, setImage] = useState("");
   const [filename, setFilename] = useState("");
   const [onProgress, setOnProgress] = useState(false);
-  const [files, setFiles] = React.useState<File[]>([]);
+  const [file, setFile] = useState<File>();
   const [result, setResult] = useState<Tesseract.Page>();
   const [color, setColor] = useState("#ffffff");
+  const [fileLabel, setFileLabel] = useState('');
   const override: CSSProperties = {
     display: "block",
     margin: "0 auto",
@@ -67,14 +69,16 @@ function App() {
           onDrop={acceptedFiles => {
           acceptedFiles.forEach((file) => {
             const reader = new FileReader();
-
+            setFile(file)
             reader.onload = () => {
                 const binaryStr = reader.result
                 var partsOfStr = (''+binaryStr).split(',');
                 if(partsOfStr.length > 0){
-                  const fileParser = FileParser(''+ reader.result)
+                  const fileParser = FileParser(file.arrayBuffer)
                   console.log('Split', partsOfStr[1])
-                  setImage(""+partsOfStr[1])
+                  setImage(""+reader.result)
+                  setFileLabel(file.name)
+                  
                 }
                 // console.log('Split', partsOfStr)
 
@@ -103,7 +107,7 @@ function App() {
           {image != ""  && 
           <div className='image-container'>
           
-            <p className='image-label'>Document.png</p>
+            <p className='image-label'>{fileLabel}</p>
             <img src={closeIcon} className='close-icon' alt="React Logo"
             onClick={resetChanges} />
 
@@ -132,17 +136,30 @@ function App() {
             <p className="header">Result of Scanning</p>
             <p className="sub-header">This is the result of document analysis for estimation</p>
         </div>
-
+        
         <div className="result-container">
-          <p>Basic Information</p>
-          <p>{'file name: ' }</p>
-          <p>{'file size: ' }</p>
-          <p>{'Extension: ' }</p>
-          <p>{'Words: ' }</p>
-          <p>{'Characters: ' }</p>
+          <div>
+        
+        <img src={closeIcon} className='close-icon' alt="React Logo"
+            onClick={resetChanges} style={{width: 150, height: 180}}/>
+
         </div>
 
-        <div className="">
+        <div style={{flex:1}}>
+
+          <div style={{alignItems:'start',}}>
+
+        <div>
+              <p>Basic Information</p>
+              <p>{'file name: '+ file?.name }</p>
+              <p>{'file size: ' + file?.size }</p>
+              <p>{'Extension: '}</p>
+              <p>{'Words: ' }</p>
+              <p>{'Characters: ' }</p>
+        </div>      
+          </div>
+
+        <div>
 
           <div>
           <p>Contents</p>
@@ -191,8 +208,14 @@ function App() {
 
 
         </div>
-       
 
+        </div>
+        <div style={{}}>
+        <img src={closeCircleIcon} className='close-icon' alt="React Logo"
+            onClick={resetChanges} style={{marginTop: 10}}/>
+        </div>
+        </div>
+       
       </header>}
       
 

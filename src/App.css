@@ -2,6 +2,8 @@
   text-align: center;
 }
 
+
+
 .header{
   color: #000; 
   text-align:'start'; 
@@ -98,9 +100,21 @@
 }
 
 .result-container {
-  border-width: 1%;
+  border-width: 0.5px;
+  border-style: solid;
+  width: 90%;
   border-color: gray;
-  margin: 10px;
+  margin-top: 5%;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  
+  /* background-color: #000; */
+  
+}
+
+.root-container {
+  width:100%,
 }
 
 
