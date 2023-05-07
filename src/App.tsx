@@ -21,13 +21,14 @@ function App() {
     borderColor: "red",
     alignSelf:'center'
   };
-  const fileParser = FileParser()
+  
   const resetChanges = () => {
     setImage("")
   }
 
   const handleClick = () => {
     if (image != ""){
+
           console.log('Recognizing....')
           setOnProgress(true)
           Tesseract.recognize(
@@ -69,8 +70,18 @@ function App() {
 
             reader.onload = () => {
                 const binaryStr = reader.result
-                console.log('Image Properties', reader.result)
-                setImage(""+reader.result)
+                var partsOfStr = (''+binaryStr).split(',');
+                if(partsOfStr.length > 0){
+                  const fileParser = FileParser(''+ reader.result)
+                  console.log('Split', partsOfStr[1])
+                  setImage(""+partsOfStr[1])
+                }
+                // console.log('Split', partsOfStr)
+
+                
+                // console.log('Image Properties', reader.result)
+
+                
               }
             reader.readAsDataURL(file);
             return file;
