@@ -18,17 +18,7 @@ const FileParser = async(path: any) => {
   // }
 
   const configuration: TextractClientConfig = {
-  //   region:'XXXXXX',
-  //   // awsAccesskeyID: "ASIAXBDE6P26LYD3XAUM",
-  //   // awsSecretAccessKey: "GgjRnewJBjQoKmqQ/qBy8JuLQ+hi0x3CX06caP2x",
-  //   // awsRegion: "ap-northeast-2",
-  //   credentials: {
-  //     accessKeyId: "XXXXXXXXXXX",
-  //     secretAccessKey: "XXXXXXX",
-  //     sessionToken: "",
-  //   }
-  // }
-
+     
     
   }
   
