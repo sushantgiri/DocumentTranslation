@@ -4,6 +4,7 @@ import { TextractClient, AnalyzeDocumentCommand,TextractClientConfig } from "@aw
 import { Buffer } from 'buffer';
 import * as fs from 'fs';
 const FileParser = async(path: any) => {
+  console.log('Path',path)
   // var partsOfStr = (''+path).split(',');
   // if(partsOfStr.length > 0){
   //   var type = partsOfStr[0]
@@ -18,7 +19,12 @@ const FileParser = async(path: any) => {
   // }
 
   const configuration: TextractClientConfig = {
-     
+     region: '',
+     credentials:{
+      accessKeyId:'',
+      secretAccessKey:'',
+      sessionToken: ''
+     }
     
   }
   
