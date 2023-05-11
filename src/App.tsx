@@ -92,15 +92,18 @@ function App() {
           acceptedFiles.forEach((file) => {
             const reader = new FileReader();
             setFile(file)
+            
             reader.onload = () => {
                 const binaryStr = reader.result
                 var partsOfStr = (''+binaryStr).split(',');
+                console.log('PartsOfStr--->', partsOfStr)
                 if(partsOfStr.length > 0){
-                  const fileParser = FileParser(file.arrayBuffer)
-                  console.log('Split', file.arrayBuffer)
+                  console.log('Reader Result' ,reader.result)
+                  const fileParser = FileParser(reader.result)
+                  // Uint8Array.from(atob(''+reader.result), c => c.charCodeAt(0))
+                  // console.log('Split', new Int8Array(reader.result))
                   setImage(""+reader.result)
-                  setFileLabel(file.name)
-                  
+                  setFileLabel(file.name) 
                 }
                 // console.log('Split', partsOfStr)
 
@@ -109,7 +112,7 @@ function App() {
 
                 
               }
-            reader.readAsDataURL(file);
+            reader.readAsArrayBuffer(file);
             return file;
           });
         }}>
