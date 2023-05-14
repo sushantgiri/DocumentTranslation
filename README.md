@@ -5,7 +5,6 @@ The application is available here. [https://sushantgiri.github.io/DocumentTransl
 
 The application uses tessaract library asynchronously to parse the text in the document.
 
-
 ## Available Scripts
 
 In the project directory, you can run:
