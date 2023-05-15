@@ -6,7 +6,7 @@ import closeIcon from './close.svg';
 import closeCircleIcon from './circle_close.svg'
 import documentIcon from './file_document.svg'
 import ClipLoader from "react-spinners/ClipLoader";
-import { TextractClient, AnalyzeDocumentCommand } from "@aws-sdk/client-textract";
+
 import FileParser from './FileParser';
 
 function App() {
@@ -94,6 +94,9 @@ function App() {
             setFile(file)
             
             reader.onload = () => {
+
+              const documentBytes = new Uint8Array(reader.result as ArrayBuffer)
+              
                 const binaryStr = reader.result
                 var partsOfStr = (''+binaryStr).split(',');
                 console.log('PartsOfStr--->', partsOfStr)
